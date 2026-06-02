@@ -1,6 +1,7 @@
-
+import { createPiecePosition, isPawnActivePiece, canPawnMove } from "../../../utility/index"
 
 function Position({
+  board,
   positionBg,
   pieceTurn,
   val,
@@ -24,22 +25,31 @@ function Position({
     n5: "/assets/chess-pieces/bK.svg",
     n6: "/assets/chess-pieces/bQ.svg",
   }
-  const handlePositionClick = () => {
-    const position = `${rowIndex}-${colIndex}`
+
+  const handleClickPosition = () => {
+    const position = createPiecePosition(rowIndex, colIndex)
+
     const isCorrectPiece = (pieceTurn === "w" && val > 0) || (pieceTurn === "b" && val < 0)
+
 
     if (activePosition == "" && isCorrectPiece) {
       setActivePosition((prev) => prev === position ? "" : position)
     } else if (activePosition !== "" && !isCorrectPiece && position !== activePosition) {
-      handleUpdateBoard(rowIndex, colIndex)
+      if (isPawnActivePiece(activePosition, board) && canPawnMove(activePosition, position, board)) {
+        handleUpdateBoard(rowIndex, colIndex)
+      }
+      // else {
+      //   handleUpdateBoard(rowIndex, colIndex)
+      // }
     } else {
       setActivePosition("")
     }
   }
+
   return (
     <div
       className={`w-16 h-16 ${positionBg} ${activePosition === `${rowIndex}-${colIndex}` ? "bg-green-300" : ""} border-[1px] border-black flex items-center justify-center`}
-      onClick={() => handlePositionClick()}
+      onClick={() => handleClickPosition()}
     >
       {
         val != 0 ? (

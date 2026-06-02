@@ -1,16 +1,7 @@
 import { useState } from "react"
 import Position from "../../components/chessBoard/Position"
+import { initialBoard } from "../../../constants/index"
 
-const initialBoard = [
-  [-4, -2, -3, -5, -6, -3, -2, -4],
-  [-1, -1, -1, -1, -1, -1, -1, -1],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 1, 1, 1, 1, 1, 1, 1],
-  [4, 2, 3, 5, 6, 3, 2, 4],
-]
 
 function ChessBoard() {
   const [activePosition, setActivePosition] = useState("")
@@ -39,6 +30,7 @@ function ChessBoard() {
             row.map((position, positionIndex) => (
               <Position
                 key={`${rowIndex}-${positionIndex}`}
+                board={board}
                 positionBg={(rowIndex + positionIndex) % 2 === 0 ? "bg-gray-200" : "bg-gray-600"}
                 pieceTurn={turn}
                 val={position}
