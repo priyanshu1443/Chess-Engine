@@ -1,4 +1,15 @@
-import { createPiecePosition, isPawnActivePiece, canPawnMove } from "../../../utility/index"
+import { 
+  createPiecePosition,
+  canPawnMove, 
+  isPawnActivePiece, 
+  isRookActivePiece, 
+  isBishopActivePiece, 
+  isQueenActivePiece,
+  isKingActivePiece,
+  isKnightActivePiece,
+} from "../../../utility/index"
+import { pieceMap } from "../../../constants"
+import { act } from "react"
 
 function Position({
   board,
@@ -11,23 +22,10 @@ function Position({
   setActivePosition,
   handleUpdateBoard
 }) {
-  const pieceMap = {
-    1: "/assets/chess-pieces/wP.svg",
-    2: "/assets/chess-pieces/wN.svg",
-    3: "/assets/chess-pieces/wB.svg",
-    4: "/assets/chess-pieces/wR.svg",
-    5: "/assets/chess-pieces/wK.svg",
-    6: "/assets/chess-pieces/wQ.svg",
-    n1: "/assets/chess-pieces/bP.svg",
-    n2: "/assets/chess-pieces/bN.svg",
-    n3: "/assets/chess-pieces/bB.svg",
-    n4: "/assets/chess-pieces/bR.svg",
-    n5: "/assets/chess-pieces/bK.svg",
-    n6: "/assets/chess-pieces/bQ.svg",
-  }
 
   const handleClickPosition = () => {
     const position = createPiecePosition(rowIndex, colIndex)
+    console.log(position)
 
     const isCorrectPiece = (pieceTurn === "w" && val > 0) || (pieceTurn === "b" && val < 0)
 
@@ -37,10 +35,17 @@ function Position({
     } else if (activePosition !== "" && !isCorrectPiece && position !== activePosition) {
       if (isPawnActivePiece(activePosition, board) && canPawnMove(activePosition, position, board)) {
         handleUpdateBoard(rowIndex, colIndex)
+      } else if (isRookActivePiece(activePosition, board)) {
+        console.log("Rook move")
+      } else if (isBishopActivePiece(activePosition, board)) {
+        console.log("Bishop move")
+      } else if (isQueenActivePiece(activePosition, board)) {
+        console.log("Queen move")
+      } else if (isKingActivePiece(activePosition, board)) {
+        console.log("King move")
+      } else if (isKnightActivePiece(activePosition, board)) {
+        console.log("Knight move")
       }
-      // else {
-      //   handleUpdateBoard(rowIndex, colIndex)
-      // }
     } else {
       setActivePosition("")
     }

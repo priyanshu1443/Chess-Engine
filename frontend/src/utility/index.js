@@ -1,14 +1,8 @@
+import { getPiecePosition, pieceType } from "./common"
+
 export const createPiecePosition = (row, col) => `${row}-${col}`
 
-export const getPiecePosition = (position) => position.split("-").map(Number)
-
 export const absoluteVal = (val) => Math.abs(val)
-
-// return : true = white piece , false : black piece
-export const pieceType = (position, board) => {
-  const [row, col] = getPiecePosition(position)
-  return board[row][col] > 0
-}
 
 export const isPawn = (pieceVal) => {
   return Math.abs(pieceVal) === 1
@@ -48,4 +42,29 @@ export const canPawnMove = (activePosition, targetPosition, board) => {
 export const isPawnActivePiece = (position, board) => {
   const [row, col] = getPiecePosition(position)
   return absoluteVal(board[row][col]) === 1
+}
+
+export const isRookActivePiece = (position, board) => {
+  const [row, col] = getPiecePosition(position)
+  return absoluteVal(board[row][col]) === 4
+}
+
+export const isBishopActivePiece = (position, board) => {
+  const [row, col] = getPiecePosition(position)
+  return absoluteVal(board[row][col]) === 3
+}
+
+export const isQueenActivePiece = (position, board) => {
+  const [row, col] = getPiecePosition(position)
+  return absoluteVal(board[row][col]) === 5
+}
+
+export const isKingActivePiece = (position, board) => {
+  const [row, col] = getPiecePosition(position)
+  return absoluteVal(board[row][col]) === 6
+}
+
+export const isKnightActivePiece = (position, board) => {
+  const [row, col] = getPiecePosition(position)
+  return absoluteVal(board[row][col]) === 2
 }
